@@ -1,6 +1,15 @@
 import { INITIAL_FRUITS } from './data/fallbackFruits';
 import { Fruit, CartItem, Order, OrderItem } from './types';
 import './index.css';
+import {
+  getFruits,
+  addFruit as dbAddFruit,
+  updateFruitDetails as dbUpdateFruit,
+  placeOrder as dbPlaceOrder,
+  getOrder as dbGetOrder,
+  getAllOrders as dbGetAllOrders,
+  updateOrderStatus as dbUpdateOrderStatus
+} from './data/dbHelper';
 
 // -------------------------------------------------------------
 // State Management
@@ -554,11 +563,38 @@ function handleCheckout(e: Event) {
 
   // Store recent order ID in localStorage for quick tracker query
   const recentPurchasesStr = localStorage.getItem('s_recent_memos');
-  const recents: string[] = recentPurchasesStr ? JSON.parse(recentPurchasesStr) : [];
+  let recents: string[] = recentPurchasesStr ? JSON.parse(recentPurchasesStr) : [];
   if (!recents.includes(orderId)) {
-    recents.push(orderId);
+    recents.unshift(orderId);
     localStorage.setItem('s_recent_memos', JSON.stringify(recents));
   }
+
+  // Save order to Firebase Firestore (Real-Time DB Sync)
+  dbPlaceOrder(newOrder).then((finalId) => {
+    // Replace locally generated temporay ID with true Firestore ID
+    const idx = orders.findIndex(o => o.id === orderId);
+    if (idx > -1) {
+      orders[idx].id = finalId;
+    }
+    
+    // Refresh memo list
+    let freshMemos = localStorage.getItem('s_recent_memos');
+    let memosList: string[] = freshMemos ? JSON.parse(freshMemos) : [];
+    memosList = memosList.map(item => item === orderId ? finalId : item);
+    localStorage.setItem('s_recent_memos', JSON.stringify(memosList));
+    
+    saveOrdersToStorage();
+    renderRecentTrackerList();
+
+    // If currently tracking this temporary memo, refresh it with real Firestore memo
+    const activeTracker = document.getElementById('track-id-input') as HTMLInputElement;
+    if (activeTracker && (activeTracker.value === orderId || activeTracker.value === finalId)) {
+      activeTracker.value = finalId;
+      triggerOrderSearch(finalId);
+    }
+  }).catch((err) => {
+    console.warn("Unable to sync checkout to Firestore:", err);
+  });
 
   // Clear cart
   cart = [];
@@ -587,7 +623,7 @@ function handleCheckout(e: Event) {
 // -------------------------------------------------------------
 // Rendering: Order Tracker System
 // -------------------------------------------------------------
-function triggerOrderSearch(idStr: string) {
+function renderOrderDetailBlock(foundOrder: Order) {
   const placeholder = document.getElementById('track-placeholder');
   const detailsBlock = document.getElementById('track-details-block');
   
@@ -601,20 +637,6 @@ function triggerOrderSearch(idStr: string) {
   const itemsContainer = document.getElementById('item-track-table');
 
   if (!detailsBlock || !placeholder) return;
-
-  const foundOrder = orders.find(o => o.id.toLowerCase() === idStr.trim().toLowerCase());
-
-  if (!foundOrder) {
-    placeholder.classList.remove('hidden');
-    placeholder.innerHTML = `
-      <div class="text-rose-500 font-extrabold flex items-center justify-center gap-1">
-        <span>⚠️</span>
-        <span>"${idStr}" - নামে কোনো মেমো পাওয়া যায়নি! পিনকোডটি আবার চেক করুন।</span>
-      </div>
-    `;
-    detailsBlock.classList.add('hidden');
-    return;
-  }
 
   // Hide placeholder
   placeholder.classList.add('hidden');
@@ -696,6 +718,70 @@ function triggerOrderSearch(idStr: string) {
         dot.classList.add('bg-emerald-500', 'border-emerald-200');
         title.classList.add('text-emerald-600', 'font-black');
       }
+    }
+  });
+}
+
+function triggerOrderSearch(idStr: string) {
+  const placeholder = document.getElementById('track-placeholder');
+  const detailsBlock = document.getElementById('track-details-block');
+  if (!placeholder || !detailsBlock) return;
+
+  const memoId = idStr.trim();
+  if (!memoId) return;
+
+  const foundOrder = orders.find(o => o.id.toLowerCase() === memoId.toLowerCase());
+
+  if (foundOrder) {
+    // Show local cached order immediately
+    renderOrderDetailBlock(foundOrder);
+  } else {
+    // Show live query loader
+    placeholder.classList.remove('hidden');
+    placeholder.innerHTML = `
+      <div class="py-6 text-center items-center justify-center flex flex-col gap-2.5">
+        <div class="w-7 h-7 border-3 border-emerald-500/20 border-t-emerald-600 rounded-full animate-spin"></div>
+        <p class="text-[11px] text-slate-500 font-bold">সার্ভারে মেমো "${memoId.toUpperCase()}" খোঁজা হচ্ছে...</p>
+      </div>
+    `;
+    detailsBlock.classList.add('hidden');
+  }
+
+  // Live async Firestore fetch (guarantees real-time status!)
+  dbGetOrder(memoId).then((liveOrder) => {
+    if (liveOrder) {
+      // Sync local orders array
+      const idx = orders.findIndex(o => o.id === liveOrder.id);
+      if (idx > -1) {
+        orders[idx] = liveOrder;
+      } else {
+        orders.unshift(liveOrder);
+      }
+      saveOrdersToStorage();
+      renderRecentTrackerList();
+      
+      // Render the latest up-to-date data
+      renderOrderDetailBlock(liveOrder);
+    } else if (!foundOrder) {
+      placeholder.classList.remove('hidden');
+      placeholder.innerHTML = `
+        <div class="text-rose-500 font-extrabold flex items-center justify-center gap-1">
+          <span>⚠️</span>
+          <span>"${memoId}" - নামে কোনো মেমো ডেটাবেজে পাওয়া যায়নি! পিনকোডটি আবার চেক করুন।</span>
+        </div>
+      `;
+      detailsBlock.classList.add('hidden');
+    }
+  }).catch((err) => {
+    console.warn("Error tracking order from Firestore:", err);
+    if (!foundOrder) {
+      placeholder.classList.remove('hidden');
+      placeholder.innerHTML = `
+        <div class="text-rose-500 font-extrabold flex items-center justify-center gap-1">
+          <span>⚠️</span>
+          <span>সার্ভার থেকে ট্র্যাকিং তথ্য লোড করতে ব্যর্থ হয়েছে বা ক্লায়েন্ট অফলাইন!</span>
+        </div>
+      `;
     }
   });
 }
@@ -939,15 +1025,22 @@ function renderStaffFruitsList() {
     orders[oIdx].status = nextStatus;
     orders[oIdx].updatedAt = new Date().toISOString();
     
+    let payStatus: any = undefined;
     // Auto mark as Paid when delivered
     if (nextStatus === 'Delivered') {
       orders[oIdx].paymentStatus = 'Paid';
+      payStatus = 'Paid';
     }
 
     saveOrdersToStorage();
     calculateStaffStats();
     renderStaffOrdersLog();
     showToast(`মেমো "${orderId.toUpperCase()}"-এর স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে!`, 'info');
+
+    // Live update in Firebase Firestore
+    dbUpdateOrderStatus(orderId, nextStatus, payStatus).catch((err) => {
+      console.warn("Unable to update order status in Firestore:", err);
+    });
   }
 };
 
@@ -1014,7 +1107,7 @@ function renderStaffFruitsList() {
 // -------------------------------------------------------------
 // Initialize App Core Settings and Registers
 // -------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   initDatabase();
 
   // Basic triggers and inputs query
@@ -1164,7 +1257,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update Mode
       const fIdx = fruits.findIndex(item => item.id === formId.value);
       if (fIdx > -1) {
-        fruits[fIdx] = {
+        const updatedFruit = {
           ...fruits[fIdx],
           name: formName.value.trim(),
           price: priceVal,
@@ -1175,7 +1268,12 @@ document.addEventListener('DOMContentLoaded', () => {
           description: formDesc.value.trim(),
           isAvailable: stockVal > 0
         };
+        fruits[fIdx] = updatedFruit;
         showToast('ফলের তথ্য সফলভাবে হালনাগাদ করা হয়েছে!', 'success');
+
+        dbUpdateFruit(formId.value, updatedFruit).catch(err => {
+          console.warn("Unable to update fruit in Firestore:", err);
+        });
       }
     } else {
       // Add Mode
@@ -1194,6 +1292,19 @@ document.addEventListener('DOMContentLoaded', () => {
       
       fruits.push(newFruit);
       showToast('নতুন ফল সফলভাবে তালিকাভুক্ত করা হয়েছে!', 'success');
+
+      dbAddFruit(newFruit).then((assignedId) => {
+        const slot = fruits.findIndex(f => f.id === newFruitId);
+        if (slot > -1) {
+          fruits[slot].id = assignedId;
+        }
+        saveFruitsToStorage();
+        calculateStaffStats();
+        renderStaffFruitsList();
+        renderStorefront();
+      }).catch(err => {
+        console.warn("Unable to add fruit to Firestore:", err);
+      });
     }
 
     saveFruitsToStorage();
@@ -1206,4 +1317,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load initial displays
   renderStorefront();
   updateCartBadge();
-});
+
+  // Background load fresh data from Firebase Firestore (Real-Time Synchronisation)
+  getFruits().then((freshFruits) => {
+    fruits = freshFruits;
+    saveFruitsToStorage();
+    renderStorefront();
+  }).catch((err) => {
+    console.warn("Firestore fruits cache loading:", err);
+  });
+
+  dbGetAllOrders().then((freshOrders) => {
+    orders = freshOrders;
+    saveOrdersToStorage();
+    calculateStaffStats();
+    if (activeTab === 'staff') {
+      renderStaffInterface();
+    }
+  }).catch((err) => {
+    console.warn("Firestore orders cache loading:", err);
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
