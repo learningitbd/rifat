@@ -1,13 +1,724 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full bg-slate-50">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>সিজনাল ফল - পাবনা সদর</title>
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="h-full text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+
+    <div id="app" class="min-h-screen flex flex-col font-sans">
+      
+      <!-- Top Promotion & Contact Banner -->
+      <div class="bg-emerald-600 text-slate-100 text-xs font-semibold py-2 px-4 shadow-sm relative z-20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1.5 sm:gap-4">
+          <span class="flex items-center gap-1.5 text-center sm:text-left">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-300 animate-pulse"></span>
+            পাবনা সদরের সেরা ও তাজা এবং শতভাগ ফরমালিন মুক্ত সিজনাল মৌসুমি ফল সরাসরি বাগান থেকে!
+          </span>
+          <div class="flex items-center gap-4 text-xs font-mono">
+            <span>📞 ফোন করুন: ০১৭৮৬-৮০৩৮৯৯</span>
+            <span class="hidden md:inline">✉️ seasonalfool@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Sticky Navigation Header -->
+      <header class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm z-30 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-4">
+          <!-- Logo / Brand Identifier -->
+          <div id="btn-logo" class="flex items-center gap-2 cursor-pointer group">
+            <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-white shadow-md shadow-emerald-500/25 group-hover:scale-105 transition-transform duration-250">
+              <!-- Leaf Icon inline SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="animate-float text-emerald-50"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-13.9.2"></path><path d="M9 22v-4h4"></path></svg>
+            </div>
+            <div>
+              <h1 class="text-xl font-black text-slate-900 leading-none tracking-tight">সিজনাল ফল</h1>
+              <p class="text-[10px] text-emerald-600 font-extrabold mt-1">শতভাগ প্রাকৃতিক ও তাজা</p>
+            </div>
+          </div>
+
+          <!-- Tab Menu Controls -->
+          <nav class="flex items-center gap-1 sm:gap-2">
+            <button id="tab-store" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 bg-emerald-500 text-white shadow-md shadow-emerald-500/15 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+              <span>ফল স্টোর</span>
+            </button>
+
+            <button id="tab-track" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-slate-50 flex items-center gap-1.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>অর্ডার ট্র্যাক</span>
+            </button>
+
+            <button id="tab-staff" class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-slate-50 flex items-center gap-1.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              <span class="hidden sm:inline">স্টাফ পোর্টাল</span>
+              <span class="sm:hidden">স্টাফ</span>
+            </button>
+
+            <!-- Sticky Cart Basket Toggle Trigger -->
+            <button id="cart-trigger" class="relative p-2.5 ml-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Container Screen Pages wrapper -->
+      <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+
+        <!-- 1. STORE VIEW -->
+        <section id="view-store" class="space-y-6">
+          
+          <!-- Promo Banner Cards and Hero -->
+          <div class="bg-gradient-to-br from-emerald-800 to-teal-950 rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-xl shadow-emerald-950/10">
+            <!-- Background Absolute Details -->
+            <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-10 -top-10 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-2xl space-y-4">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-400/20 rounded-full text-xs font-bold text-emerald-300">
+                <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                শতভাগ রাসায়নিক ও কার্বাইড মুক্ত
+              </div>
+              <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                পাবনার আসল চাষীদের বাগান থেকে <br class="hidden sm:inline" />তাজা ও খাঁটি মৌসুমী ফল
+              </h2>
+              <p class="text-sm text-slate-300 leading-relaxed font-medium">
+                পাবনা ও ঈশ্বরদীর বিখ্যাত বাগান থেকে প্রাকৃতিকভাবে পাকা সবচেয়ে পুষ্টিকর ফলসমূহ সরাসরি সংগ্রহ করে নিরাপদ ও পরিচ্ছন্নভাবে আপনার ঘরে আমরা পৌঁছে দিচ্ছি। রাসায়নিকের কোনো মিশ্রণ ছাড়াই পাবেন খাঁটি সুস্বাদ ও সতেজ ঘ্রাণ!
+              </p>
+              <div class="flex flex-wrap gap-4 pt-1">
+                <div class="flex items-center gap-2 bg-emerald-900/40 px-3 py-2 rounded-xl border border-emerald-700/30 text-xs">
+                  <span class="text-amber-400">⚡</span>
+                  <span>দ্রুত ডেলিভারি (২৪ ঘণ্টা)</span>
+                </div>
+                <div class="flex items-center gap-2 bg-emerald-900/40 px-3 py-2 rounded-xl border border-emerald-700/30 text-xs">
+                  <span class="text-amber-400">🤝</span>
+                  <span>ক্যাশ অন ডেলিভারি</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Filtering & Search Toolbar Header -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            
+            <!-- Search field box -->
+            <div class="relative flex-1 max-w-md">
+              <div class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="ফল খুঁজুন (যেমন: আম, লিচু, পেয়ারা...)" 
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-medium transition-all"
+              />
+            </div>
+
+            <!-- Filter states controls -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button data-season="all" class="btn-filter px-3.5 py-1.5 rounded-xl text-xs font-black shadow-sm bg-slate-900 text-white transition-all cursor-pointer">
+                সব সিজন একসাথে 
+              </button>
+              <button data-season="গ্রীষ্মকালীন (Summer)" class="btn-filter px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200/70 transition-all cursor-pointer">
+                গ্রীষ্মকালীন
+              </button>
+              <button data-season="বর্ষাকালীন (Monsoon)" class="btn-filter px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200/70 transition-all cursor-pointer">
+                বর্ষাকালীন
+              </button>
+              <button data-season="শীতকালীন (Winter)" class="btn-filter px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200/70 transition-all cursor-pointer">
+                শীতকালীন
+              </button>
+              <button data-season="সরাসরি (Year-round)" class="btn-filter px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200/70 transition-all cursor-pointer">
+                ১২ মাসি ফল
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading Indicator Spinner -->
+          <div id="store-loading" class="py-24 text-center items-center justify-center flex flex-col gap-3">
+            <div class="w-10 h-10 border-4 border-emerald-500/25 border-t-emerald-600 rounded-full animate-spin"></div>
+            <p class="text-xs text-slate-500 font-bold">ফল স্টোর লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+          </div>
+
+          <!-- Empty Search State -->
+          <div id="store-empty" class="hidden py-16 text-center max-w-sm mx-auto space-y-4">
+            <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-base font-extrabold text-slate-900">কাঙ্ক্ষিত ফলটি পাওয়া যায়নি!</h3>
+              <p class="text-xs text-slate-400 leading-normal font-medium">অনুগ্রহ করে অন্য নাম দিয়ে খুঁজুন বা অন্য সিজনে ক্লিক করুন।</p>
+            </div>
+          </div>
+
+          <!-- Dynamic Products Catalog Grid -->
+          <div id="fruits-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+        </section>
+
+
+        <!-- 2. TRACKER VIEW -->
+        <section id="view-track" class="max-w-2xl mx-auto space-y-6 hidden">
+          
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-md space-y-6">
+            
+            <div class="text-center space-y-2">
+              <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <h2 class="text-xl font-black text-slate-900">অর্ডার ট্র্যাকিং সিস্টেম</h2>
+              <p class="text-xs text-slate-400 font-medium">অর্ডার করার পর প্রাপ্ত ৪ সংখ্যার বা ইউনিক মেমো নং টি দিয়ে ট্র্যাক করুন</p>
+            </div>
+
+            <!-- Search Field form -->
+            <form id="track-form" class="flex gap-2">
+              <input 
+                type="text" 
+                id="track-id-input" 
+                placeholder="মেমো বা অর্ডার আইডি প্রদান করুন (যেমন: order-1)" 
+                required
+                class="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 text-sm font-semibold transition-all"
+              />
+              <button type="submit" class="bg-slate-950 hover:bg-slate-900 text-white px-5 py-2.5 rounded-xl font-black text-xs transition-colors cursor-pointer flex items-center gap-1">
+                <span>অনুসন্ধান</span>
+              </button>
+            </form>
+
+            <!-- Quick Recent User Orders Links -->
+            <div id="track-recents-box" class="hidden text-xs space-y-2 pt-2 border-t border-slate-50">
+              <span class="text-slate-400 font-bold block">আপনার সাম্প্রতিক সফল মেমোসমূহ:</span>
+              <div id="track-recents-list" class="flex flex-wrap gap-1.5">
+                <!-- Dynamically filled with buttons -->
+              </div>
+            </div>
+
+            <!-- Empty tracker state placeholder -->
+            <div id="track-placeholder" class="py-12 text-center text-slate-400 text-xs font-medium border-t border-slate-100/80">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-slate-300 mb-2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              আইডি সাবমিট করলে অর্ডারের বিস্তারিত ও লাইভ ডেলিভারির আপডেট আসবে।
+            </div>
+
+            <!-- Main Order Details Display Pane -->
+            <div id="track-details-block" class="hidden space-y-6 pt-6 border-t border-slate-100">
+              
+              <!-- Static Order Alert Header -->
+              <div class="flex items-center justify-between bg-emerald-50 text-emerald-800 p-4 rounded-2xl border border-emerald-100">
+                <div>
+                  <span id="label-track-id" class="text-[10px] font-mono block text-emerald-600/90 font-bold uppercase tracking-widest">ID: ORDER-123456</span>
+                  <h4 class="text-sm font-extrabold">অর্ডার স্ট্যাটাস:</h4>
+                </div>
+                <div id="badge-track-status" class="bg-emerald-600 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm">
+                  গৃহীত হয়েছে
+                </div>
+              </div>
+
+              <!-- Customer profile short overview -->
+              <div class="grid grid-cols-2 gap-4 text-xs font-semibold bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                <div class="space-y-1">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">ক্রেতার নাম:</span>
+                  <span id="text-track-name" class="text-slate-800">রাকিবুল হাসান</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">মোবাইল ফোন:</span>
+                  <span id="text-track-phone" class="text-slate-800">০১৭৮৬-৮০৩৮৯৯</span>
+                </div>
+                <div class="col-span-2 space-y-1">
+                  <span class="text-slate-400 block text-[10px] uppercase font-bold">ডেলিভারি ঠিকানা:</span>
+                  <span id="text-track-address" class="text-slate-800 font-medium">লাইব্রেরি বাজার, পাবনা সদর</span>
+                </div>
+              </div>
+
+              <!-- Stepper Deliver Progress Map Timeline -->
+              <div class="space-y-1">
+                <h4 class="text-xs font-extrabold text-slate-800 pb-2">ডেলিভারি ট্র্যাকিং ধাপসমূহ:</h4>
+                <div class="relative pl-6 space-y-6 border-l-2 border-slate-100 ml-3 py-1" id="timeline-box">
+                  
+                  <!-- Step 1 Pending -->
+                  <div class="relative timeline-step" data-step="Pending">
+                    <span class="step-dot absolute -left-9 top-0.5 w-5.5 h-5.5 rounded-full bg-slate-200 border-4 border-white flex items-center justify-center transition-colors"></span>
+                    <div class="ml-1">
+                      <p class="text-xs font-extrabold text-slate-700 step-title">অর্ডার গৃহীত হয়েছে (Pending)</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">আপনার অর্ডারটি আমাদের সিস্টেমে সফলভাবে জমা হয়েছে।</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 2 Confirmed -->
+                  <div class="relative timeline-step" data-step="Confirmed">
+                    <span class="step-dot absolute -left-9 top-0.5 w-5.5 h-5.5 rounded-full bg-slate-200 border-4 border-white flex items-center justify-center transition-colors"></span>
+                    <div class="ml-1">
+                      <p class="text-xs font-extrabold text-slate-700 step-title">অর্ডার নিশ্চিত হয়েছে (Confirmed)</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">সব ফল পর্যাপ্ত মজুদে রয়েছে এবং আপনার তথ্য স্টুয়ার্ড কর্তৃক যাচাই করা হয়েছে।</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 3 Processing -->
+                  <div class="relative timeline-step" data-step="Processing">
+                    <span class="step-dot absolute -left-9 top-0.5 w-5.5 h-5.5 rounded-full bg-slate-200 border-4 border-white flex items-center justify-center transition-colors"></span>
+                    <div class="ml-1">
+                      <p class="text-xs font-extrabold text-slate-700 step-title">প্যাকেজিং চলছে (Processing)</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">বাগান থেকে তাজা ফল সংগ্রহপূর্বক আপনার জন্য পরিচ্ছন্ন কার্টনে প্যাকিং করা হচ্ছে।</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 4 Shipped -->
+                  <div class="relative timeline-step" data-step="Shipped">
+                    <span class="step-dot absolute -left-9 top-0.5 w-5.5 h-5.5 rounded-full bg-slate-200 border-4 border-white flex items-center justify-center transition-colors"></span>
+                    <div class="ml-1">
+                      <p class="text-xs font-extrabold text-slate-700 step-title">ডেলিভারির পথে (Shipped)</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">আমাদের নিজস্ব ডেডিকেটেড রাইডার পাবনা সদর থেকে আপনার ঠিকানার দিকে বের হয়েছে।</p>
+                    </div>
+                  </div>
+
+                  <!-- Step 5 Delivered -->
+                  <div class="relative timeline-step" data-step="Delivered">
+                    <span class="step-dot absolute -left-9 top-0.5 w-5.5 h-5.5 rounded-full bg-slate-200 border-4 border-white flex items-center justify-center transition-colors"></span>
+                    <div class="ml-1">
+                      <p class="text-xs font-extrabold text-slate-700 step-title">ডেলিভারি সম্পন্ন (Delivered)</p>
+                      <p class="text-[10px] text-slate-400 mt-0.5">আপনার তাজা মিষ্ট ফলসমূহ সফলভাবে হস্তান্তর করা হয়েছে। ধন্যবাদ আমাদের সাথে থাকার জন্য!</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Product Summary Ordered Items Table -->
+              <div class="border border-slate-100 rounded-2xl overflow-hidden text-xs">
+                <div class="bg-slate-50 px-4 py-3.5 border-b border-slate-100 flex justify-between items-center">
+                  <span class="font-extrabold text-slate-900">অর্ডারকৃত ফলসমূহ</span>
+                  <span class="text-slate-400 font-bold" id="text-track-time">২৮ মে, ২০২৬</span>
+                </div>
+                <div class="divide-y divide-slate-100" id="item-track-table">
+                  <!-- JS Fill -->
+                </div>
+                <div class="bg-slate-100/50 p-4 flex justify-between items-center font-bold text-slate-800">
+                  <span>সর্বমোট বিল (টাকা):</span>
+                  <span class="text-sm font-black text-emerald-600" id="text-track-total">৳ ৪৫০</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- 3. STAFF PORTAL VIEW -->
+        <section id="view-staff" class="hidden space-y-6">
+          
+          <!-- GATE / PASSWORD PROMPT PANEL -->
+          <div id="staff-gate" class="max-w-sm mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-md space-y-5 text-center">
+            <div class="w-12 h-12 bg-slate-100 text-slate-700 rounded-2xl flex items-center justify-center mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <div class="space-y-1">
+              <h2 class="text-base font-black text-slate-900">স্টাফ পিন কোড ভ্যারিফিকেশন</h2>
+              <p class="text-xs text-slate-400 leading-normal font-medium">অর্ডার ডেটা ও পণ্য আপগ্রেড করতে অনুগ্রহ করে সিকিউরিটি পিন দিন।</p>
+            </div>
+            <form id="staff-pin-form" class="space-y-3">
+              <input 
+                type="password" 
+                id="staff-pin-input" 
+                placeholder="PIN কোড প্রদান করুন" 
+                required
+                class="w-full text-center px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono tracking-widest text-sm"
+              />
+              <button type="submit" class="w-full bg-slate-950 hover:bg-slate-900 text-white py-2.5 rounded-xl text-xs font-black transition-colors cursor-pointer">
+                লগইন (ভেরিফাই PIN)
+              </button>
+            </form>
+            <p class="text-[11px] text-slate-400 font-bold border-t border-slate-50 pt-3">
+              💡 স্টাফ পাসকোড টেস্ট করার জন্য: <span class="text-amber-500 font-mono">১২৩৪</span> অথবা একদম পাসকোড ছাড়াই নিচে বাইপাস বাটনে ও চাপ দিতে পারেন।
+            </p>
+            <button id="btn-bypass-gate" class="text-[11px] text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold transition-all w-full cursor-pointer mt-1">
+              🔑 ডেমো এডমিন বাইপাস এন্ট্রি
+            </button>
+          </div>
+
+          <!-- AUTHENTICATED STAFF PANEL CONTENT -->
+          <div id="staff-dashboard" class="hidden space-y-10">
+            
+            <!-- Welcome Header Status row -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 text-white p-6 rounded-3xl shadow-xl relative overflow-hidden">
+              <div class="absolute -right-20 -top-20 w-80 h-80 bg-slate-800 rounded-full blur-2xl opacity-40 pointer-events-none"></div>
+              <div class="relative z-10 space-y-1">
+                <div class="flex items-center gap-2">
+                  <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                  <span class="text-xs text-emerald-400 font-extrabold uppercase tracking-wide">স্টাফ প্যানেল সক্রিয়</span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-black">স্বাগতম, ফল ভান্ডার এডমিন!</h2>
+                <p class="text-xs text-slate-400 font-medium">পাবনা সদরের গ্রাহকদের সিজনাল তাজা অফার ও অর্ডার ড্যাশবোর্ড আপডেট রাখুন।</p>
+              </div>
+
+              <!-- Stats buttons & control actions -->
+              <div class="flex flex-wrap gap-2 relative z-10">
+                <button id="btn-add-fruit-trigger" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center gap-1 shadow-md shadow-emerald-500/10">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  নতুন ফল যোগ করুন
+                </button>
+                <button id="btn-staff-logout" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer">
+                  লগআউট করুন
+                </button>
+              </div>
+            </div>
+
+            <!-- Dashboard Numbers Quick Overview -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              
+              <!-- Stat 1: Revenue -->
+              <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm space-y-2">
+                <span class="text-slate-400 font-bold text-[10px] uppercase block">মোট বিক্রি (রাজস্ব)</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-2xl font-black text-slate-900" id="stat-revenue">৳ ০</span>
+                  <span class="text-[10px] font-bold text-slate-400">টাকা</span>
+                </div>
+              </div>
+
+              <!-- Stat 2: Orders Count -->
+              <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm space-y-2">
+                <span class="text-slate-400 font-bold text-[10px] uppercase block">মোট অর্ডার সংখ্যা</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-2xl font-black text-slate-900" id="stat-orders-count">০</span>
+                  <span class="text-[10px] font-bold text-slate-400">টি মেমো</span>
+                </div>
+              </div>
+
+              <!-- Stat 3: Processing order counts -->
+              <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm space-y-2">
+                <span class="text-slate-400 font-bold text-[10px] uppercase block">চলমান ডেলিভারি</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-2xl font-black text-amber-500" id="stat-active-deliveries">০</span>
+                  <span class="text-[10px] font-bold text-slate-400">অর্ডার</span>
+                </div>
+              </div>
+
+              <!-- Stat 4: Out of Stock Warning -->
+              <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 shadow-sm space-y-2">
+                <span class="text-slate-400 font-bold text-[10px] uppercase block">স্টক ফুরিয়ে আসা ফল</span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-2xl font-black text-rose-500" id="stat-out-stock-count">০</span>
+                  <span class="text-[10px] font-bold text-slate-400">পদ</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- TWO COLUMN ADM PANEL STRUCT -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+              
+              <!-- Left Content Col: Orders Management List (Span 2) -->
+              <div class="xl:col-span-2 space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-black text-slate-900">গ্রাহকদের অর্ডারসমূহ</h3>
+                  <span class="text-slate-400 text-xs font-bold" id="staff-orders-count-label">০ টি মোট অর্ডার</span>
+                </div>
+
+                <!-- Web Orders management list container -->
+                <div class="space-y-4" id="staff-orders-list">
+                  <!-- Dynamic render of client orders in card mode for responsive layout -->
+                </div>
+
+                <div id="staff-orders-empty" class="hidden py-12 text-center text-slate-400 text-xs font-medium bg-white rounded-2xl border border-slate-100">
+                  কোনো অর্ডার পাওয়া যায়নি। গ্রাহক পণ্য ক্রয় করলে তালিকাভুক্ত হবে।
+                </div>
+              </div>
+
+              <!-- Right Content Col: Inventory Management List (Span 1) -->
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-black text-slate-900">স্টক ও মূল্য তালিকা</h3>
+                  <span class="text-slate-400 text-xs font-bold" id="staff-items-count-label">০ টি ফল</span>
+                </div>
+
+                <!-- Products table/listing layout inside dashboard -->
+                <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+                  <div class="p-4 bg-slate-50 border-b border-slate-100">
+                    <span class="text-xs font-black text-slate-900 block">ইনভেন্টরি সামারি</span>
+                  </div>
+                  <div class="divide-y divide-slate-100 max-h-165 overflow-y-auto" id="staff-fruits-list">
+                    <!-- Dynamic populated fields -->
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- MODAL overlay: Add / Edit Fruit -->
+            <div id="fruit-modal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden">
+              <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl relative border border-slate-150 transform transition-all duration-300">
+                <div class="p-5 bg-slate-900 text-white flex justify-between items-center">
+                  <h4 id="fruit-modal-title" class="text-sm font-black">নতুন ফল তালিকাভুক্ত করুন</h4>
+                  <button id="btn-close-fruit-modal" class="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </button>
+                </div>
+                
+                <form id="fruit-form" class="p-5 space-y-4">
+                  <input type="hidden" id="fruit-form-id" value="" />
+                  
+                  <div class="space-y-1">
+                    <label class="text-[10px] font-black uppercase text-slate-400 block">ফলের নাম (বাংলা)</label>
+                    <input 
+                      type="text" 
+                      id="fruit-form-name" 
+                      placeholder="যেমন: রাজশাহী ফজলি আম" 
+                      required
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-black uppercase text-slate-400 block">মূল্য (৳)</label>
+                      <input 
+                        type="number" 
+                        id="fruit-form-price" 
+                        placeholder="যেমন: ১২০" 
+                        required
+                        min="1"
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-black uppercase text-slate-400 block">পরিমাপ ইউনিট</label>
+                      <input 
+                        type="text" 
+                        id="fruit-form-unit" 
+                        placeholder="যেমন: কেজি, ১০০ টি, পিস" 
+                        required
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-black uppercase text-slate-400 block">মজুদ/স্টক পরিমাণ</label>
+                      <input 
+                        type="number" 
+                        id="fruit-form-stock" 
+                        placeholder="যেমন: ২৫০" 
+                        required
+                        min="0"
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="text-[10px] font-black uppercase text-slate-400 block">সিজনাল ক্যাটাগরি</label>
+                      <select 
+                        id="fruit-form-season" 
+                        required
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                      >
+                        <option value="সরাসরি (Year-round)">১২ মাসি ফল</option>
+                        <option value="গ্রীষ্মকালীন (Summer)">গ্রীষ্মকালীন</option>
+                        <option value="বর্ষাকালীন (Monsoon)">বর্ষাকালীন</option>
+                        <option value="শীতকালীন (Winter)">শীতকালীন</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="text-[10px] font-black uppercase text-slate-400 block">ফল প্রদর্শনীর ছবি (Unsplash URL)</label>
+                    <input 
+                      type="url" 
+                      id="fruit-form-image" 
+                      placeholder="https://images.unsplash.com/photo-..." 
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    />
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="text-[10px] font-black uppercase text-slate-400 block">ফলের সংক্ষিপ্ত বর্ণনা</label>
+                    <textarea 
+                      id="fruit-form-desc" 
+                      rows="3"
+                      placeholder="বাগান থেকে সরাসরি হাত বাছাই তাজা ও বিষমুক্ত মিষ্টি আম..." 
+                      class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                    ></textarea>
+                  </div>
+
+                  <div class="flex gap-3 pt-2">
+                    <button type="submit" id="btn-fruit-submit" class="flex-1 bg-emerald-500 hover:bg-emerald-600 font-extrabold text-white text-xs py-2.5 rounded-xl transition-all cursor-pointer">
+                      সংরক্ষণ করুন
+                    </button>
+                    <button type="button" id="btn-fruit-cancel" class="bg-slate-100 hover:bg-slate-200 font-bold text-slate-600 text-xs px-4 rounded-xl transition-all cursor-pointer">
+                      বাতিল
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- ACTIVE SLIDING CART SIDE PANEL OVERLAY -->
+      <section id="cart-sidebar" class="fixed inset-0 z-50 overflow-hidden pointer-events-none hidden">
+        <!-- Backdrop dynamic cover -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-slate-900/60 transition-opacity opacity-0 pointer-events-auto"></div>
+        
+        <!-- Right side drawer space -->
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+          <div class="w-screen max-w-md bg-white flex flex-col shadow-2xl relative pointer-events-auto transform translate-x-full transition-transform duration-300" id="cart-panel-body">
+            
+            <!-- Cart Header -->
+            <div class="px-5 py-5 bg-slate-950 text-white flex justify-between items-center">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <div>
+                  <h3 class="text-sm font-black">আপনার শপিং ব্যাগ</h3>
+                  <p class="text-[9px] text-slate-400 font-bold leading-none mt-0.5">অর্ডার দিয়ে আজই বুঝে নিন আপনার ফল</p>
+                </div>
+              </div>
+              
+              <button id="cart-close-trigger" class="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-900 cursor-pointer transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+
+            <!-- Scrollable List of Items -->
+            <div class="flex-1 overflow-y-auto p-5 space-y-4" id="cart-items-wrapper">
+              <!-- Dynamically structured -->
+            </div>
+
+            <!-- Checkout Form & Summary Area -->
+            <div class="border-t border-slate-100 bg-slate-50/70 p-5 space-y-4 shadow-inner" id="cart-checkout-block">
+              <div class="space-y-1.5 font-bold text-slate-800 text-xs">
+                <div class="flex justify-between items-center">
+                  <span>মোট উপ-বিল:</span>
+                  <span id="label-cart-subtotal" class="font-extrabold text-slate-900">৳ ০</span>
+                </div>
+                <div class="flex justify-between items-center text-emerald-600">
+                  <span>পাবনা সদর হোম ডেলিভারি:</span>
+                  <span class="font-extrabold">ফ্রি (৳০)</span>
+                </div>
+                <div class="flex justify-between items-center border-t border-slate-200/50 pt-2 text-slate-900">
+                  <span class="text-sm font-extrabold">সর্বমোট প্রদেয় বিল:</span>
+                  <span id="label-cart-total" class="text-base font-black text-emerald-600">৳ ০</span>
+                </div>
+              </div>
+
+              <!-- Customer Checkout Details Form -->
+              <form id="checkout-form" class="space-y-3">
+                <div class="space-y-1">
+                  <span class="text-[10px] font-black text-slate-400 uppercase block">১. ক্রেতার নাম লিখুন *</span>
+                  <input 
+                    type="text" 
+                    id="order-name" 
+                    placeholder="যেমন: আরিয়ান আহমেদ" 
+                    required 
+                    class="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-semibold"
+                  />
+                </div>
+
+                <div class="space-y-1">
+                  <span class="text-[10px] font-black text-slate-400 uppercase block">২. মোবাইল নম্বর *</span>
+                  <input 
+                    type="tel" 
+                    id="order-phone" 
+                    placeholder="যেমন: ০১৭৮৬৮০৩৮৯৯" 
+                    required 
+                    pattern="^01[3-9]\d{8}$"
+                    title="১১ ডিজিটের সঠিক বিডি মোবাইল নম্বর দিন।"
+                    class="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono font-semibold"
+                  />
+                </div>
+
+                <div class="space-y-1">
+                  <span class="text-[10px] font-black text-slate-400 uppercase block">৩. পাবনা সদর এর সঠিক ঠিকানা *</span>
+                  <input 
+                    type="text" 
+                    id="order-address" 
+                    placeholder="যেমন: শালগাড়ীয়া (বৈদ্যুতিক গ্রিড সংলগ্ন), পাবনা সদর" 
+                    required 
+                    class="w-full px-3 py-2 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-semibold"
+                  />
+                </div>
+
+                <div class="relative pt-1">
+                  <span class="text-[10px] font-black text-slate-400 uppercase block mb-1">৪. পেমেন্ট পদ্ধতি</span>
+                  <div class="flex items-center gap-1 bg-white p-2 border border-slate-200 rounded-xl">
+                    <span class="text-xs font-bold text-slate-700 block flex-1">💵 ক্যাশ অন ডেলিভারি (Cash-On-Delivery)</span>
+                    <span class="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center text-white text-[9px]">✓</span>
+                  </div>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs py-2.5 rounded-xl shadow-lg shadow-emerald-500/10 cursor-pointer select-none transition-all mt-2 text-center pointer-events-auto">
+                  অর্ডারটি নিশ্চিত করতে ক্লিক করুন
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- MICRO ACTION CONTEXT TOAST NOTIFICATION -->
+      <div id="toast-wrapper" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none">
+        <!-- Toast elements dynamically inside via js -->
+      </div>
+
+      <!-- FOOTER CONTAINER -->
+      <footer class="bg-slate-900 text-slate-400 pt-16 pb-12 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+          
+          <div class="md:col-span-2 space-y-4">
+            <div class="flex items-center gap-2 text-white">
+              <div class="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-50"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-13.9.2"></path><path d="M9 22v-4h4"></path></svg>
+              </div>
+              <h3 class="text-lg font-black tracking-wide">সিজনাল ফল</h3>
+            </div>
+            <p class="text-xs text-slate-400 font-medium leading-relaxed max-w-sm">
+              ❤️ তাজা, রসালো ও প্রাকৃতিক সিজনাল ফল ❤️ আপনার সুস্থ জীবনের নিশ্চয়তা ❤️ <br />
+              আমরা সরাসরি পাবনা এবং ঈশ্বরদীর বিখ্যাত চাষীদের বাগান থেকে বিষমুক্ত ও শতভাগ ফরমালিন মুক্ত তাজা মৌসুমী ফল সংগ্রহ করে নিরাপদ প্যাকেজিংয়ে দ্রুত ডেলিভারী দিয়ে থাকি।
+            </p>
+            <p class="text-xs text-emerald-500 font-bold">
+              📍 পাবনা সদর, পাবনা, Pabna, Bangladesh, 6600
+            </p>
+          </div>
+
+          <!-- Quick Navigation Links inside footer -->
+          <div class="space-y-4">
+            <h4 class="font-extrabold text-white text-sm">সহজ লিংক</h4>
+            <ul class="space-y-2.5 text-xs font-semibold">
+              <li><button id="foot-btn-store" class="hover:text-emerald-400 transition-colors cursor-pointer">ফল স্টোর</button></li>
+              <li><button id="foot-btn-track" class="hover:text-emerald-400 transition-colors cursor-pointer">অর্ডার ট্র্যাকিং</button></li>
+              <li><button id="foot-btn-staff" class="hover:text-emerald-400 transition-colors cursor-pointer">স্টাফ অ্যাডমিন পোর্টাল</button></li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="font-extrabold text-white text-sm">যোগাযোগ করুন</h4>
+            <div class="space-y-2 text-xs leading-relaxed font-semibold">
+              <p>মোবাইল: ০১৭৮৬-৮০৩৮৯৯</p>
+              <p>হটলাইন: +৮৮০ ১৭৮৬-৮০৩৮৯৯</p>
+              <p class="font-mono">ইমেইল: seasonalfool@gmail.com</p>
+              <p class="text-slate-500 font-normal text-[10px] pt-1">সার্ভিস স্ট্যাটাস: ২৪ ঘণ্টা খোলা (Always open)</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 mt-12 border-t border-slate-800 text-center text-[11px] text-slate-500 font-medium">
+          <p>© ২০২৬ সিজনাল ফল পাবনা। সর্বস্বত্ব সংরক্ষিত। প্রাকৃতিকভাবে সতেজ ও পুষ্টিকর জীবনের নিশ্চয়তা।</p>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Application Script Entry Point -->
     <script type="module" src="/src/main.tsx"></script>
+    
   </body>
 </html>
-
