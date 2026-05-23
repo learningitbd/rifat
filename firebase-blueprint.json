@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "Fruit": {
+      "title": "Fruit",
+      "description": "A representation of a seasonal fruit in stock.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the fruit" },
+        "name": { "type": "string", "description": "Name of the fruit in Bengali and English" },
+        "price": { "type": "number", "description": "Price per kg or unit in BDT" },
+        "stock": { "type": "number", "description": "Available stock in kg or units" },
+        "unit": { "type": "string", "description": "Unit of measurement (e.g., kg, piece)" },
+        "image": { "type": "string", "description": "URL or placeholder of the fruit image" },
+        "season": { "type": "string", "description": "Season of the fruit (e.g. Summer, Monsoon, Winter, Spring)" },
+        "description": { "type": "string", "description": "Description of the fruit and benefits" },
+        "isAvailable": { "type": "boolean", "description": "Whether the fruit is currently available" }
+      },
+      "required": ["name", "price", "stock", "unit", "isAvailable"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "An order placed for custom fruits delivery.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the order" },
+        "customerName": { "type": "string", "description": "Customer full name" },
+        "phone": { "type": "string", "description": "Contact phone number" },
+        "email": { "type": "string", "description": "Contact email" },
+        "address": { "type": "string", "description": "Delivery address" },
+        "paymentMethod": { "type": "string", "description": "bKash, Nagad, Cash-on-Delivery" },
+        "paymentStatus": { "type": "string", "description": "Pending, Paid, Forfeited" },
+        "transactionId": { "type": "string", "description": "bKash/Nagad transaction id" },
+        "status": { "type": "string", "description": "Pending, Confirmed, Processing, Shipped, Delivered, Cancelled" },
+        "items": { "type": "array", "description": "Array of ordered items with quantity and subtotal" },
+        "totalAmount": { "type": "number", "description": "Total receipt amount in BDT" },
+        "createdAt": { "type": "string", "description": "Order creation date" },
+        "updatedAt": { "type": "string", "description": "Last updated date" }
+      },
+      "required": ["customerName", "phone", "address", "paymentMethod", "items", "totalAmount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "fruits": {
+      "schema": "Fruit",
+      "description": "Collection of available seasonal fruits."
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of client orders."
+    }
+  }
+}

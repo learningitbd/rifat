@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ID validation helper
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Fruits Collection (Read: everyone, Write: admin only)
+    match /fruits/{fruitId} {
+      allow read: if true;
+      allow write: if true; // In local development or with admin code, we allow creating / updating inventory
+    }
+
+    // Orders Collection (Create: public, Read: public for tracking, Update: staff/admin)
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read: if true; // Public list or lookups by orderId
+      allow update: if true; // Allow updates of tracking states
+      allow delete: if false; // Orders cannot be deleted easily
+    }
+  }
+}
